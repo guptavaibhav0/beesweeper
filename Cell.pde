@@ -43,11 +43,6 @@ class Cell {
       if (this.bee) {
         // Set gameOver flag if cell has bee
         gameOver = true;
-      } else if (this.neighbouringBeeCount == 0) {
-        // Reveal adjacent cells if no neighbouring bee
-        for (Cell c : this.neighbours) {
-          c.revealCell();
-        }
       }
     }
   }
@@ -68,6 +63,14 @@ class Cell {
     */
     this.revealed = true;
     cellShape.setFill(revealedColor);
+    if (this.neighbouringBeeCount == 0) {
+      // Reveal adjacent cells if no neighbouring bee
+      for (Cell c : this.neighbours) {
+        if (!c.revealed) {
+          c.revealCell();
+        }
+      }
+    }
   }
 
   void show() {
